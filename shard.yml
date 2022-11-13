@@ -1,0 +1,6 @@
+name: x.cr
+version: 0.1.0
+authors:
+  - sourceweaver <sw.git@pm.me>
+license: MPL-2.0
+crystal: 1.6.0
