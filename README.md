@@ -1,3 +1,3 @@
 # x.cr
 
-Experimental Crystal utilities, not ready for production.
+Experimental Crystal utilities, not meant for production use.
