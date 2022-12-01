@@ -10,5 +10,5 @@ require "./result_type.cr"
 require "./unit_test"
 
 module X
-  VERSION = "0.1.2"
+  VERSION = "0.1.4"
 end
