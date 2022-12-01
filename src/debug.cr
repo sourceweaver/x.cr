@@ -9,16 +9,15 @@ require "colorize"
 macro debug(*items)
   {% unless flag? :release %}
     {% for item in items %}
-      {% if item.is_a? Var%}
-        %value, %name = {{ item.id }}, {{ item.stringify }}
+      %value, %name = {{ item.id }}, {{ item.stringify }}
 
-        %location_info = "#{{{ item.filename }}}:#{{{ item.line_number }}}:#{{{ item.column_number }}}".colorize.underline.to_s
-        %line_info     = "> #{{{ item.line_number }}} | debug!(#{%name})".colorize(:white).to_s
-        %debug_value   = "Value of #{%name.colorize(:yellow).underline.to_s} is: #{%value.colorize(:yellow).underline.to_s}"
-        %debug_type    = "Type of  #{%name.colorize(:yellow).underline.to_s} is: #{typeof(%value).colorize(:yellow).underline.to_s}"
+      %location_info = "#{{{ item.filename }}}:#{{{ item.line_number }}}:#{{{ item.column_number }}}".colorize.underline.to_s
+      %line_info     = "> #{{{ item.line_number }}} | debug!(#{%name})".colorize(:white).to_s
+      %debug_value   = "Value of #{%name.colorize(:yellow).underline.to_s} is: #{%value.colorize(:yellow).underline.to_s}"
+      %debug_type    = "Type of  #{%name.colorize(:yellow).underline.to_s} is: #{typeof(%value).colorize(:yellow).underline.to_s}"
 
-        %debug = <<-DEBUG
-        #{"DEBUG BEGIN------------------>".colorize(:red).to_s}
+      %debug = <<-DEBUG
+        #{"DEBUG BEGIN---------------------------->".colorize(:red).to_s}
         Debugger called in:
         #{%location_info}
 
@@ -29,7 +28,6 @@ macro debug(*items)
         #{"<-----------------------------DEBUG END".colorize(:red).to_s}
         DEBUG
         puts %debug
-      {% end %}
     {% end %}
   {% end %}
 end
