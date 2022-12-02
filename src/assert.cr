@@ -33,11 +33,21 @@ module Assertion
   end
 end
 
+# Assert macro can be called anywhere from your code, but it's behavior
+# will change based on the runtime flags.
+# Assertions will not be executed if you build your program in `release` mode.
+# Assertions will throw `Assertion::Error` if your assertion fails.
+# Assertions will display success messages if you build your program with the
+# `unittest` flag.
 macro assert(cond, desc = nil)
-  unless {{cond}}
-    raise Assertion::Error.new(
-      Assertion.fail({{cond.stringify}}, {{desc}})
-    )
-  end
-  puts Assertion.success({{cond.stringify}})
+  {% unless flag? :release %}
+    unless {{cond}}
+      raise Assertion::Error.new(
+        Assertion.fail({{cond.stringify}}, {{desc}})
+      )
+    end
+    {% if flag? :unittest %}
+      puts Assertion.success({{cond.stringify}})
+    {% end %}
+  {% end %}
 end
